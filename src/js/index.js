@@ -29,8 +29,7 @@ const state = {};
 
 const controlSearch = async () => {
     // 1. get query from view
-    const query = searchView.getInput; //TODO
-    console.log(query);
+    const query = searchView.getInput(); //TODO
 
     if(query) 
     {
@@ -38,13 +37,15 @@ const controlSearch = async () => {
         state.search = new Search(query);
 
         // 3. Prepare UI for results
-
+        searchView.clearInput();
+        searchView.clearResults();
 
         // 4. Search for recipes
         await state.search.getResults();//returns a promise
 
         // 5. render results on UI, we want this to happen after we receive results from the api, so add await to getResults() above
-        console.log(state.search.result);
+        searchView.renderResults(state.search.result);
+        //console.log(state.search.result);//array with recipes
         //after clicking on search button, console will display recipes for pizza!
     }
 }
