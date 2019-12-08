@@ -57,6 +57,22 @@ elements.searchForm.addEventListener('submit', e => {
     controlSearch();
 });
 
+//closest() returns the closest ancestor of the current element (or current element itself) which matches the selectors givin in parameter
+elements.searchResPages.addEventListener('click', e => {
+    const btn = e.target.closest('.btn-inline');//we can click on the span or icon (both are inside btn-inline), 
+    //and closest() will return .btn-inline, which is parent element of span and icon
+    //so by clicking on any part of the button, we will get btn-inline in return
+    //console.log(btn);//.btn-inline
+    if (btn) 
+    {
+        const goToPage = parseInt(btn.dataset.goto, 10);//retrive data stored in HTML data attribute!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //value fron data attribute is stored as string, so parseInt to get an int!!!!!!!!!!
+        searchView.clearResults();
+        searchView.renderResults(state.search.result, goToPage);
+        console.log(goToPage);//returns page number that button will take you to
+    }
+});
+
 //const search = new Search('pizza');
 //console.log(search);
 //search.getResults();
