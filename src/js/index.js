@@ -16,6 +16,7 @@
 //getResults('broccoli');
 
 import Search from './models/Search';
+import Recipe from './models/Recipe';
 import * as searchView from './views/SearchView';
 import { elements, renderLoader, clearLoader } from './views/base';
 /*
@@ -27,6 +28,8 @@ Global state of the app
 */
 const state = {};
 
+
+/// SEARCH CONTROLLER ///////////////////////////////////////
 const controlSearch = async () => {
     // 1. get query from view
     const query = searchView.getInput(); //TODO
@@ -41,14 +44,22 @@ const controlSearch = async () => {
         searchView.clearResults();
         renderLoader(elements.searchRes)
 
-        // 4. Search for recipes
-        await state.search.getResults();//returns a promise
+        try {
 
-        // 5. render results on UI, we want this to happen after we receive results from the api, so add await to getResults() above
-        clearLoader();
-        searchView.renderResults(state.search.result);
-        //console.log(state.search.result);//array with recipes
-        //after clicking on search button, console will display recipes for pizza!
+            // 4. Search for recipes
+            await state.search.getResults();//returns a promise
+
+            // 5. render results on UI, we want this to happen after we receive results from the api, so add await to getResults() above
+            clearLoader();
+            searchView.renderResults(state.search.result);
+            //console.log(state.search.result);//array with recipes
+            //after clicking on search button, console will display recipes for pizza!
+        }
+        catch(error)
+        {
+            alert('Something wrong with the search...');
+            clearLoader();
+        }
     }
 }
 
@@ -73,6 +84,49 @@ elements.searchResPages.addEventListener('click', e => {
     }
 });
 
+
+
+//const r = new Recipe(47746);///////////////////////////////////////////////////WRITE DOWN///////////////////////////////////////
+//r.getRecipe();
+//console.log(r);
+
+/// RECIPE CONTROLLER ///////////////////////////////////////
+const controlRecipe = async () => {
+    // Get ID from url
+    const id = window.location.hash.replace('#','');
+    console.log(id);
+
+    if (id) 
+    {
+        //Prepare UI for changes
+        
+
+        // Create new recipe object
+        state.recipe = new Recipe(id);
+
+        try {
+
+            // Get recipe data
+            await state.recipe.getRecipe();//returns a promise
+
+            // Calculate servings and time
+            state.recipe.calcTime();
+            state.recipe.calcServings();
+            
+            // Render recipe
+            console.log(state.recipe);
+
+        }
+        catch(error)
+        {
+            alert('Error processing recipe!');
+        }
+    }
+};
+
+['hashchange', 'load'].forEach(event => window.addEventListener(event,controlRecipe));
+
 //const search = new Search('pizza');
 //console.log(search);
 //search.getResults();
+
