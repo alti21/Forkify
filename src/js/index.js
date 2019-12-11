@@ -17,8 +17,8 @@
 
 import Search from './models/Search';
 import Recipe from './models/Recipe';
-import * as searchView from './views/searchView';
-import * as recipeView from './views/recipeView';
+import * as searchView from './views/SearchView';
+import * as recipeView from './views/RecipeView';
 import { elements, renderLoader, clearLoader } from './views/base';
 /*
 Global state of the app
@@ -102,6 +102,9 @@ const controlRecipe = async () => {
         //Prepare UI for changes
         recipeView.clearRecipe();
         renderLoader(elements.recipe);
+
+        // Highlight selected search item
+        if(state.search) searchView.highlightSelected(id);
 
         // Create new recipe object
         state.recipe = new Recipe(id);
