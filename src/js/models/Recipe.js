@@ -40,6 +40,7 @@ export default class Recipe {
     {
         const unitsLong = ['tablespoons','tablespoon', 'ounces', 'ounce', 'teaspoons', 'teaspoon', 'cups', 'pounds'];
         const unitsShort = ['tbsp','tbsp','oz','oz', 'tsp','tsp','cup','pound'];
+        const units = [...unitsShort, 'kg', 'g'];//unitsShort array elements become part of units array
         const newIngredients = this.ingredients.map(el => {
             // 1) Uniform units
             let ingredient = el.toLowerCase();
@@ -53,7 +54,7 @@ export default class Recipe {
 
             // 3) Parase ingredients into count, unit and ingredient
             const arrIng = ingredient.split(' ');//split an ingredient(string into an array
-            const unitIndex = arrIng.findIndex(el2 => unitsShort.includes(el2));
+            const unitIndex = arrIng.findIndex(el2 => units.includes(el2));//return index of ingredient's unit's name found in arrIng
 
             let objIng;
             if(unitIndex > -1)
