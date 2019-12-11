@@ -71,6 +71,7 @@ elements.searchForm.addEventListener('submit', e => {
 
 //closest() returns the closest ancestor of the current element (or current element itself) which matches the selectors givin in parameter
 elements.searchResPages.addEventListener('click', e => {
+    ///////////////////////////////////////////////////WRITE DOWN///////////////////////////////////////
     const btn = e.target.closest('.btn-inline');//we can click on the span or icon (both are inside btn-inline), 
     //and closest() will return .btn-inline, which is parent element of span and icon
     //so by clicking on any part of the button, we will get btn-inline in return
@@ -132,6 +133,28 @@ const controlRecipe = async () => {
 };
 
 ['hashchange', 'load'].forEach(event => window.addEventListener(event,controlRecipe));
+
+// Handling recipe button clicks
+elements.recipe.addEventListener('click', e => {
+    ///////////////////////////////////////////////////WRITE DOWN///////////////////////////////////////
+    if(e.target.matches('.btn-decrease, .btn-decrease *'))//true if target element matches btn-decrease or any of btn-decrease's children ( * selector)
+    {
+        //decrease button is clicked
+        if(state.recipe.servings > 1) {
+            state.recipe.updateServings('dec');
+            recipeView.updateServingsIngredients(state.recipe);
+        }
+    }
+    else if(e.target.matches('.btn-increase, .btn-increase *'))//true if target element matches btn-increase or any of btn-increase's children ( * selector)
+    {
+        //increase button is clicked
+        state.recipe.updateServings('inc');
+        recipeView.updateServingsIngredients(state.recipe);
+    }
+    console.log(state.recipe);
+});
+
+
 
 //const search = new Search('pizza');
 //console.log(search);
