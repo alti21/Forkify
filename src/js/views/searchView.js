@@ -21,7 +21,7 @@ export const highlightSelected = id => {
         el.classList.remove('results__link--active');
     });
 
-    document.querySelector(`a[href*="${id}"]`).classList.add('results__link--active');
+    document.querySelector(`.results__link[href*="${id}"]`).classList.add('results__link--active');
 };
 
 //split the array into its words, then use reduce the run the callback function each time for each element in the array
@@ -34,7 +34,7 @@ acc: 15 / acc + cur.length = 15 + 3 = 18 / newTitle = ['Pasta', 'with', 'tomato'
 acc: 18 / acc + cur.length = 18 + 6 = 24 / newTitle = ['Pasta', 'with', 'tomato'] 
 */
 
-const limitRecipeTitle = (title, limit = 17) => {
+export const limitRecipeTitle = (title, limit = 17) => {
     const newTitle = [];//can add elements to const array but can't change elements of const array
     if(title.length > limit) {
         title.split(' ').reduce((acc, cur) => {
