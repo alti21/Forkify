@@ -11,6 +11,10 @@ export default class Likes {
             img
         }
         this.likes.push(like);
+
+        // Persist daata in localStorage
+        this.persistData();
+
         return like;
     }
 
@@ -22,6 +26,9 @@ export default class Likes {
         // [2,4,8] slice(1,2) (slice from index 1 to index 2) --> returns 4, original array is still [2,4,8]
         this.likes.splice(index, 1);
         //returns these elements and deletes them from the original array
+
+         // Persist daata in localStorage
+         this.persistData();
     }
 
     isLiked(id) {
@@ -30,5 +37,16 @@ export default class Likes {
 
     getNumLikes() {
         return this.likes.length;
+    }
+
+    persistData() {
+        localStorage.setItem('likes', JSON.stringify(this.likes));
+    }
+
+    readStorage() {
+        const storage = JSON.parse(localStorage.getItem('likes'));
+
+        // Restoring likes from the localStorage to global state
+        if (storage) this.likes = storage;
     }
 }
