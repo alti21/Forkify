@@ -9,7 +9,7 @@ const formatCount = count => {
     if(count) {
         // count = 2.5 --> 5/2 --> 2 1/2
         // count = .5 --> 1/2
-        const newCount = Math.round(newCount * 10000) / 10000;
+        const newCount = Math.round(count * 10000) / 10000;
         const [int, dec] = newCount.toString().split('.').map(el => parseInt(el, 10));
         //i.e. 2.5 ==> ["2","5"] ==> [2,5]
 
