@@ -32,7 +32,6 @@ Global state of the app
  * - Liked recipes
 */
 const state = {};
-window.state = state;
 
 /// SEARCH CONTROLLER ///////////////////////////////////////
 const controlSearch = async () => {
@@ -100,7 +99,6 @@ elements.searchResPages.addEventListener('click', e => {
 const controlRecipe = async () => {
     // Get ID from url
     const id = window.location.hash.replace('#','');
-    console.log(id);
 
     if (id) 
     {
@@ -254,8 +252,6 @@ elements.recipe.addEventListener('click', e => {//all the elements that we selec
     }
     //console.log(state.recipe);
 });
-
-window.l = new List();
 
 
 //const search = new Search('pizza');
