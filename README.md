@@ -4,3 +4,5 @@
  Used JavaScript, AJAX, Webpack, Babel
  #
  https://alti21.github.io/Forkify/dist/
+ #
+ Link for api: http://forkify-api.herokuapp.com/
